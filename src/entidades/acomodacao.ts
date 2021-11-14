@@ -54,4 +54,12 @@ export const AcomodacaoSchema = new Schema<Acomodacao>({
     },
 });
 
+<<<<<<< HEAD
 export const AcomodacaoModel = model<Acomodacao>("Acomodacao", AcomodacaoSchema, "acomodacoes");
+=======
+  export const AcomodacaoModel = model<Acomodacao>(
+    "Acomodacao", 
+    AcomodacaoSchema, 
+    "acomodacoes"
+  );
+>>>>>>> 4bd81423e77f4ff46a1497dc7d95818fbd25c80b
