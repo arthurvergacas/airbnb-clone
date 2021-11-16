@@ -10,6 +10,7 @@ import { router as acomodacoesRouter} from "./routes/acomodacoes.routes";
 import { router as authRouter, path as authPath } from "./routes/auth.routes";
 import passport from "passport";
 
+
 const app = express();
 app.set("port", process.env.PORT || 3000);
 const uriMongoDB = process.env.MONGO_URL || "mongodb://localhost:27017/";

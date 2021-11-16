@@ -1,15 +1,16 @@
-import { Schema, model } from "mongoose";
+
+import  mongoose, { model, Schema }  from "mongoose";
 
 export interface Acomodacao {
     nome: string;
-    idLocador: string;
+    idLocador: mongoose.Schema.Types.ObjectId;
     descricao: string;
     categoria: string;
-    imagem: string;
+    thumbnail: string;
     preco: number;
     local: {
-        numero: number;
         rua: string;
+        numero: number;
         complemento: string;
         cidade: string;
         estado: string;
@@ -18,7 +19,7 @@ export interface Acomodacao {
     };
     numeroDePessoas: number;
     comodidades: {
-        cozinha: number;
+        quartos: number;
         banheiros: number;
     };
     regras: {
@@ -29,14 +30,14 @@ export interface Acomodacao {
 
 export const AcomodacaoSchema = new Schema<Acomodacao>({
     nome: { type: String, required: true },
-    idLocador: { type: String, required: true },
+    idLocador: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario", required: true},
     descricao: { type: String, required: true },
     categoria: { type: String, required: true },
-    imagem: { type: String, required: true },
+    thumbnail: { type: String, required: true },
     preco: { type: Number, required: true },
     local: {
-        numero: { type: Number, required: true },
         rua: { type: String, required: true },
+        numero: { type: Number, required: true },
         complemento: { type: String },
         cidade: { type: String, required: true },
         estado: { type: String, required: true },
@@ -45,7 +46,7 @@ export const AcomodacaoSchema = new Schema<Acomodacao>({
     },
     numeroDePessoas: { type: Number, required: true },
     comodidades: {
-        cozinha: { type: Number, required: true },
+        quartos: { type: Number, required: true },
         banheiros: { type: Number, required: true },
     },
     regras: {
@@ -54,12 +55,4 @@ export const AcomodacaoSchema = new Schema<Acomodacao>({
     },
 });
 
-<<<<<<< HEAD
 export const AcomodacaoModel = model<Acomodacao>("Acomodacao", AcomodacaoSchema, "acomodacoes");
-=======
-  export const AcomodacaoModel = model<Acomodacao>(
-    "Acomodacao", 
-    AcomodacaoSchema, 
-    "acomodacoes"
-  );
->>>>>>> 4bd81423e77f4ff46a1497dc7d95818fbd25c80b
