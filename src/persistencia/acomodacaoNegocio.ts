@@ -2,22 +2,28 @@ import  mongoose from 'mongoose';
 import { Acomodacao} from '../entidades/acomodacao';
 import { AcomodacaoRepositorio } from './acomodacaoRepositorio';
 
-  export async function criarAcomodacao(nome: string, idLocador: mongoose.Schema.Types.ObjectId, descricao: string, categoria: string,thumbnail: string, preco: number, local: {rua: string; numero: number; complemento: string; cidade: string; estado: string; pais: string; cep: number;}, numeroDePessoas: number, comodidades: {quartos: number; banheiros: number;}, regras: { fumar: boolean; animais: boolean;}) {
-    //if (nome && descricao && categoria && thumbnail && preco && numeroDePessoas && local && comodidades && regras ) {
+  export async function criarAcomodacao(nome: string, idLocador: string, descricao: string, categoria: string,imagem: string, preco: number, cidade: string, estado: string,pais: string, cep: number, numeroDePessoas: number,quartos: number, banheiros: number, fumar: boolean, animais: boolean) {
+    if (nome && descricao && categoria && imagem && preco && cidade && estado && pais && cep &&numeroDePessoas && quartos &&quartos && banheiros && fumar && animais) {
         const acomodacoes: Acomodacao = {
           nome: nome,
           idLocador: idLocador,
           descricao: descricao,
           categoria: categoria,
-          thumbnail: thumbnail,
+          imagem: imagem,
           preco: preco,
           numeroDePessoas: numeroDePessoas,
-          local: local,
-          comodidades: comodidades,
-          regras: regras
+          cidade: cidade,
+          estado: estado,
+          pais: pais,
+          cep: cep,
+          quartos: quartos,
+          banheiros: banheiros,
+          fumar: fumar,
+          animais: animais,
         }
         return await AcomodacaoRepositorio.criar(acomodacoes);
-    } //else {
-       //throw new Error('Verifique as informações e tente novamente');
+    } else {
+       throw new Error('Verifique as informações e tente novamente');
       
-    
+    }
+  }
