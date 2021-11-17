@@ -18,7 +18,7 @@ export interface Acomodacao {
     };
     numeroDePessoas: number;
     comodidades: {
-        cozinha: number;
+        quartos: number;
         banheiros: number;
     };
     regras: {
@@ -45,7 +45,7 @@ export const AcomodacaoSchema = new Schema<Acomodacao>({
     },
     numeroDePessoas: { type: Number, required: true },
     comodidades: {
-        cozinha: { type: Number, required: true },
+        quartos: { type: Number, required: true },
         banheiros: { type: Number, required: true },
     },
     regras: {

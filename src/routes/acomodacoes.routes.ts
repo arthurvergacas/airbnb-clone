@@ -6,3 +6,6 @@ export const path = "/acomodacoes";
 
 router.get("/", acomodacoesController.listarAcomodacoes);
 router.get("/:id", acomodacoesController.acomodacaoID);
+router.post("/acomodacoes", acomodacoesController.criar);
+
+

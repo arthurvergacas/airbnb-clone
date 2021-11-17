@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction} from "express";
 import qs from "qs";
-import { AcomodacaoModel } from "../entidades/acomodacao";
+import { AcomodacaoModel,Acomodacao } from "../entidades/acomodacao";
 import { ReservaModel } from "../entidades/reserva";
+import {  criarAcomodacao } from '../persistencia/acomodacaoNegocio';
 
 // um exemplo de uri é:
 // api/v1/acomodacoes?nome=x&precoMin=0&precoMax=0&local[numero]=32&local[rua]=x&local[cidade]=x&local[estado]=x&capacidade=0&comodidades[cozinha]=0&comodidades[banheiro]=0&regras[fumar]=<1 ou 0>&regras[animais]=<1 ou 0>
@@ -123,3 +124,35 @@ export async function acomodacaoID(req: Request, res: Response) {
         return res.status(500).send({ message: err });
     }
 }
+
+export async function criar(req: Request, res: Response, next: NextFunction) {
+    
+   try {
+   
+    const { nome, idLocador, descricao, categoria, imagem, preco, local,numeroDePessoas, comodidades, regras} = req.body;
+    
+    
+    if (nome && idLocador&& descricao && categoria && imagem && preco && local && numeroDePessoas && comodidades && regras) {
+
+       
+       let acomodacoes: Acomodacao =  await criarAcomodacao(nome, idLocador, descricao, categoria,imagem, preco, local,numeroDePessoas,comodidades, regras);
+
+       
+       if (acomodacoes){
+            res.json({acomodacoes});
+    
+        } else {
+            res.status(400).send('Cadastro não pode ser realizado');
+        }
+
+       
+   } else {
+       res.status(400).send('Dados incompletos');
+    }
+ 
+ } catch (error) {
+    next(error);
+}
+
+}
+
