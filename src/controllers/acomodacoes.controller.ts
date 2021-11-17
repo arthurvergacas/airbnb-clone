@@ -4,19 +4,18 @@ import {  criarAcomodacao } from '../persistencia/acomodacaoNegocio';
 
 
 export async function criar(req: Request, res: Response, next: NextFunction) {
-
-
-
-   try {
-    const { nome, idLocador, descricao, categoria, thumbnail, preco, local, numeroDePessoas, comodidades, regras} = req.body;
-
-    console.log(req.body);
-    console.log(req.file);
     
-    if (nome && descricao && categoria && thumbnail && preco && local && numeroDePessoas && comodidades && regras ) {
+   try {
+   
+    const { nome, idLocador, descricao, categoria, imagem, preco, cidade, estado,pais,cep,numeroDePessoas, quartos,banheiros, fumar,animais} = req.body;
+    
+    
+    if (nome && idLocador&& descricao && categoria && imagem && preco && cidade && estado && pais && cep && numeroDePessoas &&quartos && banheiros && fumar && animais) {
 
-       let acomodacoes: Acomodacao =  await criarAcomodacao( nome, idLocador, descricao, categoria, thumbnail, preco, local, numeroDePessoas, comodidades, regras);
+       
+       let acomodacoes: Acomodacao =  await criarAcomodacao(nome, idLocador, descricao, categoria,imagem, preco, cidade, estado,pais,cep,numeroDePessoas, quartos,banheiros, fumar,animais);
 
+       
        if (acomodacoes){
             res.json({acomodacoes});
     
@@ -26,8 +25,9 @@ export async function criar(req: Request, res: Response, next: NextFunction) {
 
        
    } else {
-        res.status(400).send('Dados incompletos');
+       res.status(400).send('Dados incompletos');
     }
+ 
  } catch (error) {
     next(error);
 }
