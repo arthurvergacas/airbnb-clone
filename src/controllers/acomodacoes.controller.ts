@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import qs from "qs";
-import { AcomodacaoModel, Acomodacao } from "../entidades/acomodacao";
+import { Acomodacao, AcomodacaoModel } from "../entidades/acomodacao";
 import { ReservaModel } from "../entidades/reserva";
 import { criarAcomodacao } from "../persistencia/acomodacaoNegocio";
 
@@ -148,13 +148,13 @@ export async function criar(req: Request, res: Response, next: NextFunction) {
       idLocador,
       descricao,
       categoria,
-      imagem,
       preco,
       local,
       numeroDePessoas,
       comodidades,
       regras,
     } = req.body;
+    const imagem = req.file?.filename;
 
     if (
       nome &&
@@ -168,7 +168,7 @@ export async function criar(req: Request, res: Response, next: NextFunction) {
       comodidades &&
       regras
     ) {
-      let acomodacao: Acomodacao = await criarAcomodacao(
+      let acodamodacoes: Acomodacao = await criarAcomodacao(
         nome,
         idLocador,
         descricao,
@@ -180,9 +180,8 @@ export async function criar(req: Request, res: Response, next: NextFunction) {
         comodidades,
         regras,
       );
-
-      if (acomodacao) {
-        res.json({ acomodacao });
+      if (acodamodacoes) {
+        res.json(acodamodacoes);
       } else {
         res.status(400).send("Cadastro não pode ser realizado");
       }

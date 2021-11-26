@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { Acomodacao } from "../entidades/acomodacao";
 import { AcomodacaoRepositorio } from "./acomodacaoRepositorio";
 
@@ -47,8 +46,7 @@ export async function criarAcomodacao(
       regras,
     };
     return await AcomodacaoRepositorio.criar(acomodacoes);
-  } //else {
-  //throw new Error('Verifique as informações e tente novamente');
-
-  //throw }
+  } else {
+    throw new Error("Verifique as informações e tente novamente");
+  }
 }
